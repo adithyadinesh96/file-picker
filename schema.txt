@@ -1,0 +1,26 @@
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE files (
+    file_id VARCHAR(100),
+    user_id INT,
+    status VARCHAR(25),
+    created_at timestamp,
+    drive_name VARCHAR(25),
+    PRIMARY KEY (file_id)
+);
+
+CREATE TABLE file_ownership (
+    file_id VARCHAR(100) REFERENCES files(file_id),  -- Assuming you have a files table
+    owner_id INT,
+    PRIMARY KEY (file_id)
+);
+
+CREATE TABLE file_access (
+    file_id VARCHAR(100) REFERENCES files(file_id),
+    user_id INT
+);
